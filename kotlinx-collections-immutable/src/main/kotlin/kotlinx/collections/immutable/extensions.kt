@@ -19,6 +19,7 @@
 package kotlinx.collections.immutable
 
 import kotlinx.collections.immutable.implementations.immutableList.persistentVectorOf
+import kotlinx.collections.immutable.implementations.immutableMap.persistentHashMapOf
 
 //@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 //inline fun <T> @kotlin.internal.Exact ImmutableCollection<T>.mutate(mutator: (MutableCollection<T>) -> Unit): ImmutableCollection<T> = builder().apply(mutator).build()
@@ -128,7 +129,7 @@ fun <E> immutableSetOf(): ImmutableSet<E> = ImmutableOrderedSet.emptyOf<E>()
 fun <E> immutableHashSetOf(vararg elements: E): ImmutableSet<E> = ImmutableHashSet.emptyOf<E>().addAll(elements.asList())
 
 fun <K, V> immutableMapOf(vararg pairs: Pair<K, V>): ImmutableMap<K, V> = ImmutableOrderedMap.emptyOf<K,V>().mutate { it += pairs }
-fun <K, V> immutableHashMapOf(vararg pairs: Pair<K, V>): ImmutableMap<K, V> = ImmutableHashMap.emptyOf<K,V>().mutate { it += pairs }
+fun <K, V> immutableHashMapOf(vararg pairs: Pair<K, V>): ImmutableMap<K, V> = persistentHashMapOf<K,V>().mutate { it += pairs }
 
 fun <T> Iterable<T>.toImmutableList(): ImmutableList<T> =
         this as? ImmutableList
@@ -159,5 +160,5 @@ fun <K, V> Map<K, V>.toImmutableMap(): ImmutableMap<K, V>
 
 fun <K, V> Map<K, V>.toImmutableHashMap(): ImmutableMap<K, V>
     = this as? ImmutableMap
-        ?: (this as? ImmutableHashMap.Builder)?.build()
-        ?: ImmutableHashMap.emptyOf<K, V>().putAll(this)
+        ?: (this as? ImmutableMap.Builder)?.build()
+        ?: immutableHashMapOf<K, V>().putAll(this)

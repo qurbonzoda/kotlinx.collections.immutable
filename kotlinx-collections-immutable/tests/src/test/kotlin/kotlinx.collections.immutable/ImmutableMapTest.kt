@@ -6,9 +6,9 @@ import test.collections.compare
 import java.util.*
 import kotlin.test.*
 
-class ImmutableHashMapTest : ImmutableMapTest() {
-    override fun <K, V> immutableMapOf(vararg pairs: Pair<K, V>): ImmutableMap<K, V> = kotlinx.collections.immutable.immutableHashMapOf(*pairs)
-}
+//class ImmutableHashMapTest : ImmutableMapTest() {
+//    override fun <K, V> immutableMapOf(vararg pairs: Pair<K, V>): ImmutableMap<K, V> = kotlinx.collections.immutable.immutableHashMapOf(*pairs)
+//}
 class ImmutableOrderedMapTest : ImmutableMapTest() {
     override fun <K, V> immutableMapOf(vararg pairs: Pair<K, V>): ImmutableMap<K, V> = kotlinx.collections.immutable.immutableMapOf(*pairs)
     override fun <K, V> compareMaps(expected: Map<K, V>, actual: Map<K, V>) = compare(expected, actual) { mapBehavior(ordered = true) }
