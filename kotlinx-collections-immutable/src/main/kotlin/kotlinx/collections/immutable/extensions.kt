@@ -18,6 +18,8 @@
 
 package kotlinx.collections.immutable
 
+import kotlinx.collections.immutable.implementations.immutableList.persistentVectorOf
+
 //@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 //inline fun <T> @kotlin.internal.Exact ImmutableCollection<T>.mutate(mutator: (MutableCollection<T>) -> Unit): ImmutableCollection<T> = builder().apply(mutator).build()
 // it or this?
@@ -117,8 +119,8 @@ public operator fun <K, V> ImmutableMap<out K, V>.minus(keys: Sequence<K>): Immu
         = (this as ImmutableMap<K, V>).mutate { it.minusAssign(keys) }
 
 
-fun <E> immutableListOf(vararg elements: E): ImmutableList<E> = ImmutableVectorList.emptyOf<E>().addAll(elements.asList())
-fun <E> immutableListOf(): ImmutableList<E> = ImmutableVectorList.emptyOf<E>()
+fun <E> immutableListOf(vararg elements: E): ImmutableList<E> = persistentVectorOf<E>().addAll(elements.asList())
+fun <E> immutableListOf(): ImmutableList<E> = persistentVectorOf()
 
 fun <E> immutableSetOf(vararg elements: E): ImmutableSet<E> = ImmutableOrderedSet.emptyOf<E>().addAll(elements.asList())
 fun <E> immutableSetOf(): ImmutableSet<E> = ImmutableOrderedSet.emptyOf<E>()
